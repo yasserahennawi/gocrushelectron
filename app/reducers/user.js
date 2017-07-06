@@ -3,7 +3,10 @@ export default function (state = {}, action) {
     // case 'SESSION':
     //   return  state
     case 'FETCH_SESSION_SUCCESS':
-      return  action.payload
+      return  {
+        ...state,
+        "myInfo" : action.payload
+      }
   }
   return state;
 }

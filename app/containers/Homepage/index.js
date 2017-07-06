@@ -8,7 +8,7 @@ import Card from 'material-ui/Card';
 import MyCrushes from '../../components/MyCrushes'
 import Header from '../../components/Header';
 import { connect } from 'react-redux';
-import { fetchMyCrushes } from '../../actions/crushes'
+import { fetchMyCrushes, fetchCrushesOnMe, addCrush } from '../../actions/crushes'
 import { fetchSession } from '../../actions/user'
 
 const ErrorModalContainer = styled.div`
@@ -85,15 +85,18 @@ class Homepage extends Component {
     localStorage.setItem('Authorization', 'eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdXRoMCIsImFwcFVzZXJJRCI6IjgwMzE5MjIxMzE2MzgxNSJ9.e8EQ4VV7-8kC7pTxxwj6fhhtR_7MIs80kgKTElgGIeE')
     this.props.fetchSession()
     this.props.fetchMyCrushes();
+    this.props.fetchCrushesOnMe();
   };
   render() {
     const {
       crush: {
-        myCrushes = []
+        myCrushes = [],
+        crushesOnMe
       },
-      user: myInfo
+      user: {
+        myInfo: myInfo = {}
+      }
     } = this.props;
-
     var crushes = myCrushes.map((crush)=>{
       return ({
         crushName: crush.crushDisplayName,
@@ -111,7 +114,7 @@ class Homepage extends Component {
               <MyCrushesComponent crushes={crushes}/>
             </Paper>
             <Paper>
-              <CrushesOnMe />
+              <CrushesOnMe crushesNumber={crushesOnMe}/>
             </Paper>
           </ContentWrapper>
         </Paper>
@@ -124,7 +127,7 @@ class Homepage extends Component {
 function mapStateToProps(state) {
   return {
     crush: state.crushReducer,
-    user: state.userReducer
+    user: state.userReducer,
   };
 }
 
@@ -132,6 +135,8 @@ function mapStateToProps(state) {
 //      > now UserList has this.props.selectUser
 const matchDispatchToProps = {
   fetchMyCrushes: fetchMyCrushes,
+  fetchCrushesOnMe: fetchCrushesOnMe,
+  addCrush: addCrush,
   fetchSession: fetchSession
 };
 
