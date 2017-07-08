@@ -37,3 +37,17 @@ export const addCrushSuccess = (crush) => {
         payload: crush
     }
 };
+
+export const textInputChange = (event) => {
+  return {
+      type: 'TEXT_INPUT_CHANGE_REQUEST',
+      payload: event
+  }
+};
+
+export const textInputChangeSuccess = (event) => {
+  return {
+      type: 'TEXT_INPUT_CHANGE_SUCCESS',
+      payload: event
+  }
+};

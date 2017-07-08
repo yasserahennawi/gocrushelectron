@@ -1,11 +1,11 @@
 export default function (state = [], action) {
-  // switch (action.type) {
-  //   case 'REQUEST_FAIL':
-      state.push({"adfsgg": action.payload})
-      // return  [
-      //   ...state ,
-      //
-      // ]
-  // }
+  switch (action.type) {
+    case 'REQUEST_FAIL':
+      const actionType = action.type;
+      return  {
+        ...state ,
+        actionType: action.payload 
+      }
+  }
   return state;
 }

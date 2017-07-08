@@ -1,4 +1,4 @@
-import { fetchMyCrushesSuccess, fetchCrushesOnMeSuccess } from 'actions/crushes';
+import { fetchMyCrushesSuccess, fetchCrushesOnMeSuccess, addCrushSuccess } from 'actions/crushes';
 import { requestFailed } from 'actions/fail';
 // import request from 'superagent-bluebird-promise';
 import 'whatwg-fetch'
@@ -56,8 +56,7 @@ function* addCrush(crushURL) {
       method: 'POST',
       body: crushURL.payload,
       headers: {
-        'Authorization': localStorage.getItem('Authorization'),
-        'toto': crushURL
+        'Authorization': localStorage.getItem('Authorization')
       },
     })
     .then(res => res.json())
@@ -73,4 +72,17 @@ function* addCrush(crushURL) {
 
 export function* watchAddCrush() {
   yield takeEvery('ADD_CRUSH_REQUEST', addCrush)
+}
+
+function* textInputChange(event) {
+  try {
+    yield put(textInputChangeSuccess(event))
+  }
+  catch(error) {
+    yield put(requestFailed(error))
+  }
+}
+
+export function* watchTextInputChange() {
+  yield takeEvery('TEXT_INPUT_CHANGE', textInputChange)
 }

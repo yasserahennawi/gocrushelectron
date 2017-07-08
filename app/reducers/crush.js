@@ -17,6 +17,12 @@ export default function (state = {}, action) {
         ...state,
         "newCrush" : action.payload
       }
+    case 'TEXT_INPUT_CHANGE_SUCCESS':
+      return  {
+        ...state,
+        "textValue" : action.payload
+      }
+
   }
   return state;
 }

@@ -4,6 +4,7 @@ import TextField from 'material-ui/TextField';
 import CircularImage from '../CircularImage';
 import PropTypes from 'prop-types';
 import CrushListItem from '../CrushListItem';
+import AddCrushField from '../AddCrushField';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
@@ -34,8 +35,14 @@ const CrushList = styled.div`
 const CrushRow = styled(CrushListItem)`
   margin-bottom: 10px;
 `;
+//
+// function onCrushSubmit(event){
+//   event.preventDefault();
+//   console.log("Homepage", event)
+//   console.log('do something: ', event);
+// }
 
-function MyCrushes({onSubmit, textFieldValue, onTextFieldChange, crushes, onChange, ...props}) {
+function MyCrushes({onSubmit, crushes, ...props}) {
 
   const listItems = crushes.map((crush, index) =>
     <CrushRow
@@ -53,25 +60,7 @@ function MyCrushes({onSubmit, textFieldValue, onTextFieldChange, crushes, onChan
         <CrushList>
           {listItems}
         </CrushList>
-        <form onSubmit={onSubmit}>
-          <TextField
-            value={textFieldValue}
-            onChange={onTextFieldChange}
-            style={{
-              width:' calc(100% - 10px)',
-              whiteSpace:' nowrap',
-              overflow:' hidden',
-              textOverflow:' ellipsis',
-              boxSizing:' border-box',
-              marginLeft:' 10px',
-            }}
-            floatingLabelText="Paste your crush About-URL here"
-            floatingLabelFocusStyle={{color: '#c33c3c'}}
-            floatingLabelStyle={{
-              fontSize: '16px',
-              fontWeight: '500'}}
-            underlineFocusStyle={{borderColor: '#c33c3c'}}/>
-        </form>
+        <AddCrushField onSubmit={(e)=>onSubmit(e)}/>
       </Wrapper>
   );
 }

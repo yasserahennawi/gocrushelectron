@@ -6,9 +6,8 @@ import WelcomeHero from '../../components/WelcomeHero'
 import CrushesOnMe from '../../components/CrushesOnMe'
 import Card from 'material-ui/Card';
 import MyCrushes from '../../components/MyCrushes'
-import Header from '../../components/Header';
 import { connect } from 'react-redux';
-import { fetchMyCrushes, fetchCrushesOnMe, addCrush } from '../../actions/crushes'
+import { fetchMyCrushes, fetchCrushesOnMe, addCrush, textInputChange } from '../../actions/crushes'
 import { fetchSession } from '../../actions/user'
 
 const ErrorModalContainer = styled.div`
@@ -77,20 +76,20 @@ const ErrorModalContainer = styled.div`
     flex-direction: row
   `;
 
-
 class Homepage extends Component {
 
-  onTextFieldChange(e){
-    console.log(e, "e");
-    this.setState({
-      textFieldValue: e.target.value,
+  onCrushSubmit(event){
+    event.preventDefault();
+    console.log("Homepage", event.target.value)
+    console.log('do something: ', event.target);
+    const pro = new Promise((data)=>{
+      console.log('data', data);
     })
   }
 
   componentWillMount() {
     localStorage.setItem('appUserID', '803192213163815')
     localStorage.setItem('Authorization', 'eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdXRoMCIsImFwcFVzZXJJRCI6IjgwMzE5MjIxMzE2MzgxNSJ9.e8EQ4VV7-8kC7pTxxwj6fhhtR_7MIs80kgKTElgGIeE')
-    this.onTextFieldChange = this.onTextFieldChange.bind(this);
     this.props.fetchSession()
     this.props.fetchMyCrushes();
     this.props.fetchCrushesOnMe();
@@ -123,11 +122,12 @@ class Homepage extends Component {
             userImage={myInfo.pictureUrl}/>
           <ContentWrapper>
             <Paper>
-              <MyCrushesComponent crushes={crushes}/>
+              <MyCrushesComponent
+                onSubmit={(e)=>this.onCrushSubmit(e)}
+                crushes={crushes}/>
             </Paper>
             <Paper>
               <CrushesOnMe
-                onTextFieldChange={this.onTextFieldChange}
                 crushesNumber={crushesOnMe}/>
             </Paper>
           </ContentWrapper>
@@ -151,6 +151,7 @@ const matchDispatchToProps = {
   fetchMyCrushes: fetchMyCrushes,
   fetchCrushesOnMe: fetchCrushesOnMe,
   addCrush: addCrush,
+  textInputChange: textInputChange,
   fetchSession: fetchSession
 };
 export default connect(mapStateToProps, matchDispatchToProps)(Homepage);
