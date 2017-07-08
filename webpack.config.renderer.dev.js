@@ -30,7 +30,6 @@ if (!(fs.existsSync(dll) && fs.existsSync(manifest))) {
   ));
   execSync('npm run build-dll');
 }
-
 export default merge.smart(baseConfig, {
   devtool: 'inline-source-map',
 
@@ -175,14 +174,16 @@ export default merge.smart(baseConfig, {
       }
     ]
   },
-
+  node: {
+    __dirname: true,
+  },
   plugins: [
     new webpack.DllReferencePlugin({
       context: process.cwd(),
       manifest: require(manifest),
       sourceType: 'var',
     }),
-    new webpack.DefinePlugin({ "global.GENTLY": false }),
+    // new webpack.DefinePlugin({ "global.GENTLY": false }),
     /**
      * https://webpack.js.org/concepts/hot-module-replacement/
      */

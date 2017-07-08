@@ -204,7 +204,8 @@
     "source-map-support": "^0.4.15",
     "styled-components": "^2.1.0",
     "superagent": "^3.5.2",
-    "superagent-bluebird-promise": "^4.2.0"
+    "superagent-bluebird-promise": "^4.2.0",
+    "whatwg-fetch": "^2.0.3"
   },
   "devEngines": {
     "node": ">=6.x",

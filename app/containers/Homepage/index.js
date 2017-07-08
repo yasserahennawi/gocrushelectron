@@ -35,7 +35,7 @@ const ErrorModalContainer = styled.div`
     flex-direction: column;
     width: 100%;
     padding: 20px;
-    box-sizing: border-box;
+    box-sizing-box;
     max-width: 1000px;
   `;
 
@@ -80,29 +80,41 @@ const ErrorModalContainer = styled.div`
 
 class Homepage extends Component {
 
+  onTextFieldChange(e){
+    console.log(e, "e");
+    this.setState({
+      textFieldValue: e.target.value,
+    })
+  }
+
   componentWillMount() {
     localStorage.setItem('appUserID', '803192213163815')
     localStorage.setItem('Authorization', 'eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdXRoMCIsImFwcFVzZXJJRCI6IjgwMzE5MjIxMzE2MzgxNSJ9.e8EQ4VV7-8kC7pTxxwj6fhhtR_7MIs80kgKTElgGIeE')
+    this.onTextFieldChange = this.onTextFieldChange.bind(this);
     this.props.fetchSession()
     this.props.fetchMyCrushes();
     this.props.fetchCrushesOnMe();
   };
+
   render() {
     const {
       crush: {
         myCrushes = [],
-        crushesOnMe
+        crushesOnMe,
+        crushUrl
       },
       user: {
         myInfo: myInfo = {}
       }
     } = this.props;
+
     var crushes = myCrushes.map((crush)=>{
       return ({
         crushName: crush.crushDisplayName,
         crushImage: crush.crushPictureUrl
       })
     })
+
     return (
       <Wrapper>
         <Paper>
@@ -114,7 +126,9 @@ class Homepage extends Component {
               <MyCrushesComponent crushes={crushes}/>
             </Paper>
             <Paper>
-              <CrushesOnMe crushesNumber={crushesOnMe}/>
+              <CrushesOnMe
+                onTextFieldChange={this.onTextFieldChange}
+                crushesNumber={crushesOnMe}/>
             </Paper>
           </ContentWrapper>
         </Paper>
@@ -139,5 +153,4 @@ const matchDispatchToProps = {
   addCrush: addCrush,
   fetchSession: fetchSession
 };
-
 export default connect(mapStateToProps, matchDispatchToProps)(Homepage);

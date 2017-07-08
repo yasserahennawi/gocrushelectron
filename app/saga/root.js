@@ -1,4 +1,4 @@
-import { watchFetchMyCrushes, watchFetchCrushesOnMe, watchAddCrush } from './crush';
+import { watchFetchMyCrushes, watchAddCrush, watchFetchCrushesOnMe } from './crush';
 import { watchFetchSession } from './user';
 import { all } from 'redux-saga/effects'
 
