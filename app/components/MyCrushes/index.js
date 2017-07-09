@@ -60,7 +60,7 @@ function MyCrushes({onSubmit, crushes, ...props}) {
         <CrushList>
           {listItems}
         </CrushList>
-        <AddCrushField onSubmit={(e)=>onSubmit(e)}/>
+        <AddCrushField onSubmit={onSubmit}/>
       </Wrapper>
   );
 }

@@ -76,16 +76,8 @@ const ErrorModalContainer = styled.div`
     flex-direction: row
   `;
 
-class Homepage extends Component {
 
-  onCrushSubmit(event){
-    event.preventDefault();
-    console.log("Homepage", event.target.value)
-    console.log('do something: ', event.target);
-    const pro = new Promise((data)=>{
-      console.log('data', data);
-    })
-  }
+class Homepage extends Component {
 
   componentWillMount() {
     localStorage.setItem('appUserID', '803192213163815')
@@ -95,16 +87,26 @@ class Homepage extends Component {
     this.props.fetchCrushesOnMe();
   };
 
+  onSubmitHandler = (values) => {
+    // console.log('this', this);
+    // console.log(values.crushUrl);
+    this.props.addCrush(values.crushUrl);
+  }
+
   render() {
     const {
       crush: {
         myCrushes = [],
-        crushesOnMe,
-        crushUrl
+        crushesOnMe = 0
       },
       user: {
         myInfo: myInfo = {}
-      }
+      },
+      // form: {
+      //   addCrushForm: {
+      //     values: {crushUrl: crushUrl = ''}
+      //   }
+      // }
     } = this.props;
 
     var crushes = myCrushes.map((crush)=>{
@@ -123,7 +125,7 @@ class Homepage extends Component {
           <ContentWrapper>
             <Paper>
               <MyCrushesComponent
-                onSubmit={(e)=>this.onCrushSubmit(e)}
+                onSubmit={this.onSubmitHandler}
                 crushes={crushes}/>
             </Paper>
             <Paper>
@@ -136,12 +138,24 @@ class Homepage extends Component {
     );
   }
 }
+//
+// function test(callback) {
+//   console.log(callback());
+// }
+//
+// const homePage = new Homepage();
+// test(homePage.onSubmitHandler.bind(homePage));
+//
+
+
+
 // Get apps state and pass it as props to UserList
 //      > whenever state changes, the UserList will automatically re-render
 function mapStateToProps(state) {
   return {
     crush: state.crushReducer,
     user: state.userReducer,
+    form: state.formReducer
   };
 }
 
