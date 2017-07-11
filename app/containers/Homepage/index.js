@@ -85,6 +85,7 @@ class Homepage extends Component {
     this.props.fetchSession()
     this.props.fetchMyCrushes();
     this.props.fetchCrushesOnMe();
+    this.props.addCrush("sdkf");
   };
 
   onSubmitHandler = (values) => {
@@ -109,10 +110,10 @@ class Homepage extends Component {
       // }
     } = this.props;
 
-    var crushes = myCrushes.map((crush)=>{
+    var crushes = myCrushes.map((myCrush)=>{
       return ({
-        crushName: crush.crushDisplayName,
-        crushImage: crush.crushPictureUrl
+        crushName: myCrush.crushDisplayName,
+        crushImage: myCrush.crushPictureUrl
       })
     })
 

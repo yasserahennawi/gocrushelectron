@@ -22,7 +22,6 @@ export default function (state = {}, action) {
         ...state,
         "textValue" : action.payload
       }
-
   }
   return state;
 }

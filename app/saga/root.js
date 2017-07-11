@@ -1,4 +1,4 @@
-import { watchFetchMyCrushes, watchAddCrush, watchFetchCrushesOnMe, watchTextInputChange } from './crush';
+import { watchFetchMyCrushes, watchAddCrush, watchFetchCrushesOnMe} from './crush';
 import { watchFetchSession } from './user';
 import { all } from 'redux-saga/effects'
 
@@ -7,7 +7,6 @@ export default function* rootSaga() {
     watchFetchMyCrushes(),
     watchFetchCrushesOnMe(),
     watchAddCrush(),
-    watchTextInputChange(),
     watchFetchSession()
   ])
 };

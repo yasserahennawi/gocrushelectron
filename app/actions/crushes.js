@@ -38,16 +38,30 @@ export const addCrushSuccess = (crush) => {
     }
 };
 
-export const textInputChange = (event) => {
+export const textInputChange = (values) => {
   return {
       type: 'TEXT_INPUT_CHANGE_REQUEST',
-      payload: event
+      payload: values
   }
 };
 
-export const textInputChangeSuccess = (event) => {
+export const textInputChangeSuccess = (values) => {
   return {
       type: 'TEXT_INPUT_CHANGE_SUCCESS',
-      payload: event
+      payload: values
+  }
+};
+
+export const deleteCrush = (crush) => {
+  return {
+      type: 'DELETE_CRUSH_REQUEST',
+      payload: crush
+  }
+};
+
+export const deleteCrushSuccess = (crush) => {
+  return {
+      type: 'DELETE_CRUSH_SUCCESS',
+      payload: crush
   }
 };
